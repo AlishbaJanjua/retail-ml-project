@@ -1,0 +1,281 @@
+{
+  "dataset": {
+    "rows": 9994,
+    "customers": 793,
+    "orders": 5009,
+    "date_min": "2014-01-03",
+    "date_max": "2017-12-30"
+  },
+  "forecast": {
+    "target": "Weekly Quantity (units) for stock planning",
+    "method": "LinearRegression on lag/rolling/calendar features, compared with naive last-week baseline. Chronological split.",
+    "limitations": [
+      "No inventory on-hand, lead time, or stockout data in this CSV.",
+      "SKU/Product-level weekly history is too sparse for reliable forecasting.",
+      "Forecasts are estimates for planning, not guaranteed demand."
+    ],
+    "series": {
+      "Overall": {
+        "n_weeks": 205,
+        "train_weeks": 164,
+        "test_weeks": 41,
+        "ml_mae": 68.26183922049886,
+        "ml_rmse": 86.10850684581808,
+        "naive_mae": 68.65853658536585,
+        "naive_rmse": 88.85353802473031,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Category::Furniture": {
+        "n_weeks": 204,
+        "train_weeks": 163,
+        "test_weeks": 41,
+        "ml_mae": 15.894650561090199,
+        "ml_rmse": 21.052042598453994,
+        "naive_mae": 17.78048780487805,
+        "naive_rmse": 22.843582650116048,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Category::Office Supplies": {
+        "n_weeks": 205,
+        "train_weeks": 164,
+        "test_weeks": 41,
+        "ml_mae": 44.36135915069605,
+        "ml_rmse": 56.40483959838851,
+        "naive_mae": 42.390243902439025,
+        "naive_rmse": 55.588207206994944,
+        "ml_beats_naive_mae": false,
+        "preferred_method": "naive_last_week"
+      },
+      "Category::Technology": {
+        "n_weeks": 204,
+        "train_weeks": 163,
+        "test_weeks": 41,
+        "ml_mae": 16.284995732826168,
+        "ml_rmse": 22.454181992396183,
+        "naive_mae": 19.951219512195124,
+        "naive_rmse": 26.131935419721362,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Accessories": {
+        "n_weeks": 204,
+        "train_weeks": 163,
+        "test_weeks": 41,
+        "ml_mae": 11.10759902193304,
+        "ml_rmse": 15.000328632929211,
+        "naive_mae": 13.78048780487805,
+        "naive_rmse": 18.605663968461783,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Appliances": {
+        "n_weeks": 203,
+        "train_weeks": 162,
+        "test_weeks": 41,
+        "ml_mae": 7.287576092870449,
+        "ml_rmse": 9.661438728793646,
+        "naive_mae": 8.926829268292684,
+        "naive_rmse": 12.095151215542089,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Art": {
+        "n_weeks": 205,
+        "train_weeks": 164,
+        "test_weeks": 41,
+        "ml_mae": 11.795007710491424,
+        "ml_rmse": 15.337809987160833,
+        "naive_mae": 14.0,
+        "naive_rmse": 17.50818623861003,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Binders": {
+        "n_weeks": 205,
+        "train_weeks": 164,
+        "test_weeks": 41,
+        "ml_mae": 14.511674092739268,
+        "ml_rmse": 18.61007809490646,
+        "naive_mae": 16.463414634146343,
+        "naive_rmse": 19.456643482619402,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Bookcases": {
+        "n_weeks": 203,
+        "train_weeks": 162,
+        "test_weeks": 41,
+        "ml_mae": 4.2358827299882345,
+        "ml_rmse": 5.4073389373073315,
+        "naive_mae": 5.658536585365853,
+        "naive_rmse": 7.160188034048186,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Chairs": {
+        "n_weeks": 204,
+        "train_weeks": 163,
+        "test_weeks": 41,
+        "ml_mae": 7.484784237927915,
+        "ml_rmse": 9.349967519161797,
+        "naive_mae": 9.75609756097561,
+        "naive_rmse": 11.554747730779379,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Copiers": {
+        "n_weeks": 187,
+        "train_weeks": 149,
+        "test_weeks": 38,
+        "ml_mae": 1.7864858365123713,
+        "ml_rmse": 2.212615193449332,
+        "naive_mae": 2.026315789473684,
+        "naive_rmse": 3.056485770154655,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Envelopes": {
+        "n_weeks": 202,
+        "train_weeks": 161,
+        "test_weeks": 41,
+        "ml_mae": 3.9921575690920585,
+        "ml_rmse": 4.865273318020254,
+        "naive_mae": 4.097560975609756,
+        "naive_rmse": 5.991864403037693,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Fasteners": {
+        "n_weeks": 204,
+        "train_weeks": 163,
+        "test_weeks": 41,
+        "ml_mae": 3.2272901113903423,
+        "ml_rmse": 4.855283419312855,
+        "naive_mae": 4.487804878048781,
+        "naive_rmse": 6.270332779903448,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Furnishings": {
+        "n_weeks": 204,
+        "train_weeks": 163,
+        "test_weeks": 41,
+        "ml_mae": 9.217889891946221,
+        "ml_rmse": 13.42178402994184,
+        "naive_mae": 11.512195121951219,
+        "naive_rmse": 15.606440196590512,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Labels": {
+        "n_weeks": 205,
+        "train_weeks": 164,
+        "test_weeks": 41,
+        "ml_mae": 5.735288403348879,
+        "ml_rmse": 7.334775096268731,
+        "naive_mae": 7.609756097560975,
+        "naive_rmse": 9.391225795987417,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Machines": {
+        "n_weeks": 195,
+        "train_weeks": 156,
+        "test_weeks": 39,
+        "ml_mae": 2.9152711066404353,
+        "ml_rmse": 4.055484787270094,
+        "naive_mae": 3.58974358974359,
+        "naive_rmse": 5.368473975024264,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Paper": {
+        "n_weeks": 205,
+        "train_weeks": 164,
+        "test_weeks": 41,
+        "ml_mae": 14.973495945874406,
+        "ml_rmse": 19.705351343889028,
+        "naive_mae": 16.926829268292682,
+        "naive_rmse": 21.3267266192607,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Phones": {
+        "n_weeks": 204,
+        "train_weeks": 163,
+        "test_weeks": 41,
+        "ml_mae": 10.50216468935714,
+        "ml_rmse": 13.745662221826036,
+        "naive_mae": 13.195121951219512,
+        "naive_rmse": 17.385864737853186,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Storage": {
+        "n_weeks": 205,
+        "train_weeks": 164,
+        "test_weeks": 41,
+        "ml_mae": 9.06298301586634,
+        "ml_rmse": 12.8980675883027,
+        "naive_mae": 13.975609756097562,
+        "naive_rmse": 17.980341568691884,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Supplies": {
+        "n_weeks": 199,
+        "train_weeks": 159,
+        "test_weeks": 40,
+        "ml_mae": 2.943948795300767,
+        "ml_rmse": 3.7451950704986645,
+        "naive_mae": 4.1,
+        "naive_rmse": 5.296225070746145,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      },
+      "Sub-Category::Tables": {
+        "n_weeks": 201,
+        "train_weeks": 160,
+        "test_weeks": 41,
+        "ml_mae": 4.704998829137441,
+        "ml_rmse": 6.368999350091738,
+        "naive_mae": 4.853658536585366,
+        "naive_rmse": 6.642435639094458,
+        "ml_beats_naive_mae": true,
+        "preferred_method": "ml"
+      }
+    }
+  },
+  "profit": {
+    "target": "Profit",
+    "model": "GradientBoostingRegressor",
+    "features": [
+      "Category",
+      "Sub-Category",
+      "Segment",
+      "Region",
+      "Quantity",
+      "Discount",
+      "Sales"
+    ],
+    "note": "Profit is never used as an input feature. Gradient Boosting was chosen after Linear Regression produced negative R\u00b2 due to heavy Profit outliers and non-linear patterns.",
+    "r2": 0.22501832591224735,
+    "mae": 35.34217846516257,
+    "rmse": 193.8429362460397,
+    "limitation": "Historical association only. This model cannot measure true price elasticity or guarantee that changing discount will cause the estimated profit.",
+    "discount_scale": "Dataset Discount values are fractions (0.2 = 20%)."
+  },
+  "segmentation": {
+    "n_customers": 793,
+    "n_clusters": 4,
+    "reference_date": "2017-12-31",
+    "inertia_by_k": {
+      "3": 1100.2915616575206,
+      "4": 836.1235093771506,
+      "5": 735.6087112890937,
+      "6": 639.6158826241947
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "reference_date": "2017-12-31",
+  "method": "RFM features + StandardScaler + KMeans",
+  "n_clusters": 4,
+  "inertia_by_k": {
+    "3": 1100.2915616575206,
+    "4": 836.1235093771506,
+    "5": 735.6087112890937,
+    "6": 639.6158826241947
+  },
+  "k_choice_reason": "k=4 chosen for clear marketing groups after checking inertia for k=3..6. Segmentation is unsupervised: there is no true label to predict.",
+  "segments": [
+    {
+      "cluster_id": 2,
+      "segment": "At-Risk High Spenders",
+      "customer_count": 64,
+      "avg_recency_days": 123.72,
+      "avg_frequency_orders": 8.3,
+      "avg_monetary_sales": 9479.55,
+      "total_monetary_sales": 606690.92,
+      "marketing_suggestion": "Consider a polite win-back offer. No campaign outcome data is available to prove response."
+    },
+    {
+      "cluster_id": 0,
+      "segment": "Loyal High-Value Customers",
+      "customer_count": 298,
+      "avg_recency_days": 72.74,
+      "avg_frequency_orders": 8.52,
+      "avg_monetary_sales": 3322.22,
+      "total_monetary_sales": 990022.45,
+      "marketing_suggestion": "Offer loyalty rewards and early access to promotions. This is a suggested treatment, not a guaranteed response."
+    },
+    {
+      "cluster_id": 1,
+      "segment": "Steady Average Customers",
+      "customer_count": 335,
+      "avg_recency_days": 101.2,
+      "avg_frequency_orders": 4.73,
+      "avg_monetary_sales": 1669.69,
+      "total_monetary_sales": 559345.58,
+      "marketing_suggestion": "Maintain regular communication and seasonal offers. Impact is not measured in this dataset."
+    },
+    {
+      "cluster_id": 3,
+      "segment": "Occasional Low-Spend Customers",
+      "customer_count": 96,
+      "avg_recency_days": 559.49,
+      "avg_frequency_orders": 3.7,
+      "avg_monetary_sales": 1470.23,
+      "total_monetary_sales": 141141.91,
+      "marketing_suggestion": "Keep low-cost email outreach only. Avoid expensive discounts without testing."
+    }
+  ]
+}

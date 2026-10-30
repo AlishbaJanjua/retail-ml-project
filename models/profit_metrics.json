@@ -1,0 +1,19 @@
+{
+  "target": "Profit",
+  "model": "GradientBoostingRegressor",
+  "features": [
+    "Category",
+    "Sub-Category",
+    "Segment",
+    "Region",
+    "Quantity",
+    "Discount",
+    "Sales"
+  ],
+  "note": "Profit is never used as an input feature. Gradient Boosting was chosen after Linear Regression produced negative R\u00b2 due to heavy Profit outliers and non-linear patterns.",
+  "r2": 0.22501832591224735,
+  "mae": 35.34217846516257,
+  "rmse": 193.8429362460397,
+  "limitation": "Historical association only. This model cannot measure true price elasticity or guarantee that changing discount will cause the estimated profit.",
+  "discount_scale": "Dataset Discount values are fractions (0.2 = 20%)."
+}

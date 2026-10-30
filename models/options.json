@@ -1,0 +1,124 @@
+{
+  "Category": [
+    "Furniture",
+    "Office Supplies",
+    "Technology"
+  ],
+  "Sub-Category": [
+    "Accessories",
+    "Appliances",
+    "Art",
+    "Binders",
+    "Bookcases",
+    "Chairs",
+    "Copiers",
+    "Envelopes",
+    "Fasteners",
+    "Furnishings",
+    "Labels",
+    "Machines",
+    "Paper",
+    "Phones",
+    "Storage",
+    "Supplies",
+    "Tables"
+  ],
+  "Segment": [
+    "Consumer",
+    "Corporate",
+    "Home Office"
+  ],
+  "Region": [
+    "Central",
+    "East",
+    "South",
+    "West"
+  ],
+  "Sub-Categories-By-Category": {
+    "Furniture": [
+      "Bookcases",
+      "Chairs",
+      "Furnishings",
+      "Tables"
+    ],
+    "Office Supplies": [
+      "Appliances",
+      "Art",
+      "Binders",
+      "Envelopes",
+      "Fasteners",
+      "Labels",
+      "Paper",
+      "Storage",
+      "Supplies"
+    ],
+    "Technology": [
+      "Accessories",
+      "Copiers",
+      "Machines",
+      "Phones"
+    ]
+  },
+  "forecast_series": [
+    "Category::Furniture",
+    "Category::Office Supplies",
+    "Category::Technology",
+    "Overall",
+    "Sub-Category::Accessories",
+    "Sub-Category::Appliances",
+    "Sub-Category::Art",
+    "Sub-Category::Binders",
+    "Sub-Category::Bookcases",
+    "Sub-Category::Chairs",
+    "Sub-Category::Copiers",
+    "Sub-Category::Envelopes",
+    "Sub-Category::Fasteners",
+    "Sub-Category::Furnishings",
+    "Sub-Category::Labels",
+    "Sub-Category::Machines",
+    "Sub-Category::Paper",
+    "Sub-Category::Phones",
+    "Sub-Category::Storage",
+    "Sub-Category::Supplies",
+    "Sub-Category::Tables"
+  ],
+  "scenario_discounts": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "sample_customer_ids": [
+    "AA-10315",
+    "AA-10375",
+    "AA-10480",
+    "AA-10645",
+    "AB-10015",
+    "AB-10060",
+    "AB-10105",
+    "AB-10150",
+    "AB-10165",
+    "AB-10255",
+    "AB-10600",
+    "AC-10420",
+    "AC-10450",
+    "AC-10615",
+    "AC-10660",
+    "AD-10180",
+    "AF-10870",
+    "AF-10885",
+    "AG-10270",
+    "AG-10300",
+    "AG-10330",
+    "AG-10390",
+    "AG-10495",
+    "AG-10525",
+    "AG-10675"
+  ],
+  "date_range": {
+    "min": "2014-01-03",
+    "max": "2017-12-30"
+  }
+}

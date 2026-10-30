@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Retail ML & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --ok: #047857;
+      --error: #b91c1c;
+      --font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 1rem;
+      text-align: center;
+    }
+
+    header h1 { margin: 0 0 0.3rem; font-size: 1.7rem; }
+    header p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    main { max-width: 980px; margin: 0 auto; padding: 1.2rem 1rem 2rem; }
+
+    .note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 0.55rem 0.9rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+      width: auto;
+      margin: 0;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .panel {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.15rem 1.25rem;
+    }
+
+    .panel.active { display: block; }
+
+    .panel h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.2rem;
+    }
+
+    .panel .desc {
+      margin: 0 0 0.9rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin: 0.65rem 0 0.25rem;
+    }
+
+    select, input, button, label, textarea { font-family: inherit; }
+
+    select, input {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 700px) {
+      .row-2 { grid-template-columns: 1fr; }
+    }
+
+    button.primary {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button.primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    button.primary:disabled { opacity: 0.65; cursor: wait; }
+
+    .result, .error {
+      margin-top: 0.9rem;
+      padding: 0.85rem 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+
+    .result {
+      border-color: #a7f3d0;
+      background: #ecfdf5;
+      color: var(--text);
+    }
+
+    .error {
+      border-color: #fecaca;
+      background: #fef2f2;
+      color: var(--error);
+      white-space: pre-wrap;
+    }
+
+    .hidden { display: none; }
+
+    .big {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ok);
+      margin: 0.2rem 0 0.5rem;
+    }
+
+    .muted { color: var(--muted); font-size: 0.88rem; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.7rem;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.55rem;
+      text-align: left;
+    }
+
+    th { background: #f9fafb; }
+
+    .bar-wrap {
+      margin-top: 0.55rem;
+    }
+
+    .bar-track {
+      height: 10px;
+      background: #d1fae5;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: #059669;
+      width: 0;
+      transition: width 0.4s ease;
+    }
+
+    .metrics-block {
+      margin-top: 1.2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+
+    #metricsOutput {
+      font-family: var(--font);
+      font-size: 0.82rem;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .warn {
+      margin-top: 0.6rem;
+      padding: 0.55rem 0.7rem;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      color: #92400e;
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Retail ML &amp; Analytics</h1>
+    <p>Inventory forecast, discount/profit scenarios, and customer RFM segments</p>
+  </header>
+
+  <main>
+    <div class="note">
+      Built on the Sample Superstore dataset. All outputs are model estimates for learning and planning —
+      not guaranteed business outcomes. No inventory lead-time or campaign-response data is available.
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="forecast">Inventory Forecast</button>
+      <button class="tab-btn" data-tab="discount">Discount &amp; Profit Analysis</button>
+      <button class="tab-btn" data-tab="segments">Customer Segmentation</button>
+    </div>
+
+    <!-- PROBLEM 1 -->
+    <section id="forecast" class="panel active">
+      <h2>Inventory / Next-Week Forecast</h2>
+      <p class="desc">
+        Forecasts next-week <strong>Quantity (units)</strong> for stock planning using weekly history.
+        SKU-level forecasting is not reliable with this dataset. Suggested stock includes your safety buffer.
+      </p>
+      <form id="forecastForm">
+        <div class="row-2">
+          <div>
+            <label for="forecastCategory">Category</label>
+            <select id="forecastCategory" required></select>
+          </div>
+          <div>
+            <label for="forecastSubCategory">Sub-Category</label>
+            <select id="forecastSubCategory" required></select>
+          </div>
+        </div>
+        <p class="muted" style="margin:0.45rem 0 0;">
+          Choose <strong>Overall</strong> for all products, a Category with
+          <strong>Entire category</strong> for category-level units, or a specific Sub-Category.
+        </p>
+
+        <label for="safetyBuffer">Safety buffer (0 to 1, e.g. 0.10 = 10%)</label>
+        <input id="safetyBuffer" type="number" min="0" max="1" step="0.01" value="0.10" required />
+
+        <button class="primary" type="submit" id="forecastBtn">Run Forecast</button>
+      </form>
+      <div id="forecastResult" class="result hidden"></div>
+      <div id="forecastError" class="error hidden"></div>
+    </section>
+
+    <!-- PROBLEM 2 -->
+    <section id="discount" class="panel">
+      <h2>Discount &amp; Profit Analysis</h2>
+      <p class="desc">
+        Estimates profit at several discount levels while Sales and other inputs are held constant.
+        Historical association only — these scenarios do not establish causal effects or true demand elasticity.
+      </p>
+      <form id="discountForm">
+        <div class="row-2">
+          <div>
+            <label for="discCategory">Category</label>
+            <select id="discCategory" required></select>
+          </div>
+          <div>
+            <label for="discSubCategory">Sub-Category</label>
+            <select id="discSubCategory" required></select>
+          </div>
+        </div>
+        <div class="row-2">
+          <div>
+            <label for="discSegment">Segment</label>
+            <select id="discSegment" required></select>
+          </div>
+          <div>
+            <label for="discRegion">Region</label>
+            <select id="discRegion" required></select>
+          </div>
+        </div>
+        <div class="row-2">
+          <div>
+            <label for="discQuantity">Quantity</label>
+            <input id="discQuantity" type="number" min="1" step="1" value="2" required />
+          </div>
+          <div>
+            <label for="discSales">Sales amount (USD)</label>
+            <input id="discSales" type="number" min="0.01" step="0.01" value="200" required />
+          </div>
+        </div>
+        <button class="primary" type="submit" id="discountBtn">Estimate Profit Scenarios</button>
+      </form>
+      <div id="discountResult" class="result hidden"></div>
+      <div id="discountError" class="error hidden"></div>
+    </section>
+
+    <!-- PROBLEM 3 -->
+    <section id="segments" class="panel">
+      <h2>Customer Segmentation (RFM + KMeans)</h2>
+      <p class="desc">
+        Customers are grouped by Recency, Frequency, and Monetary value.
+        This is unsupervised learning — there is no true segment label to predict.
+      </p>
+      <button class="primary" type="button" id="loadSegmentsBtn">Load Segment Summary</button>
+      <div id="segmentsResult" class="result hidden"></div>
+      <div id="segmentsError" class="error hidden"></div>
+
+      <hr style="border: none; border-top: 1px solid var(--border); margin: 1.2rem 0;" />
+
+      <form id="customerForm">
+        <label for="customerId">Look up Customer ID</label>
+        <input id="customerId" list="customerSuggestions" placeholder="e.g. CG-12520" required />
+        <datalist id="customerSuggestions"></datalist>
+        <button class="primary" type="submit" id="customerBtn">Find Customer Segment</button>
+      </form>
+      <div id="customerResult" class="result hidden"></div>
+      <div id="customerError" class="error hidden"></div>
+    </section>
+
+    <section class="metrics-block">
+      <h2 style="margin:0 0 0.45rem; font-size:1.1rem;">Saved Model Metrics</h2>
+      <p class="muted" style="margin:0 0 0.7rem;">
+        Held-out / chronological evaluation metrics from training — separate from any single prediction.
+      </p>
+      <button class="primary" type="button" id="metricsBtn" style="width:auto; margin-top:0;">Load Metrics</button>
+      <pre id="metricsOutput" class="hidden"></pre>
+      <div id="metricsError" class="error hidden"></div>
+    </section>
+  </main>
+
+  <script>
+    var optionsData = null;
+
+    function hide(el) {
+      el.classList.add("hidden");
+      el.textContent = "";
+      el.innerHTML = "";
+    }
+
+    function showError(el, message) {
+      el.textContent = message;
+      el.classList.remove("hidden");
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function fillSelect(selectEl, values) {
+      selectEl.innerHTML = "";
+      values.forEach(function (value) {
+        var opt = document.createElement("option");
+        opt.value = value;
+        opt.textContent = value;
+        selectEl.appendChild(opt);
+      });
+    }
+
+    function syncSubCategories() {
+      var cat = document.getElementById("discCategory").value;
+      var values = (optionsData["Sub-Categories-By-Category"] || {})[cat] || optionsData["Sub-Category"];
+      fillSelect(document.getElementById("discSubCategory"), values);
+    }
+
+    function syncForecastSubCategories() {
+      var catSelect = document.getElementById("forecastCategory");
+      var subSelect = document.getElementById("forecastSubCategory");
+      var category = catSelect.value;
+      var previousSub = subSelect.value;
+
+      subSelect.innerHTML = "";
+
+      if (category === "Overall") {
+        var overallOpt = document.createElement("option");
+        overallOpt.value = "";
+        overallOpt.textContent = "All categories (Overall)";
+        subSelect.appendChild(overallOpt);
+        subSelect.disabled = true;
+        return;
+      }
+
+      subSelect.disabled = false;
+
+      var entireOpt = document.createElement("option");
+      entireOpt.value = "";
+      entireOpt.textContent = "Entire category";
+      subSelect.appendChild(entireOpt);
+
+      var values = (optionsData["Sub-Categories-By-Category"] || {})[category] || [];
+      values.forEach(function (value) {
+        var opt = document.createElement("option");
+        opt.value = value;
+        opt.textContent = value;
+        subSelect.appendChild(opt);
+      });
+
+      // Keep previous Sub-Category only if it still belongs to this Category.
+      var stillValid = false;
+      for (var i = 0; i < subSelect.options.length; i++) {
+        if (subSelect.options[i].value === previousSub) {
+          stillValid = true;
+          break;
+        }
+      }
+      subSelect.value = stillValid ? previousSub : "";
+    }
+
+    function buildForecastScope() {
+      var category = document.getElementById("forecastCategory").value;
+      var subCategory = document.getElementById("forecastSubCategory").value;
+
+      if (category === "Overall" || !category) {
+        return "Overall";
+      }
+      if (subCategory) {
+        return "Sub-Category::" + subCategory;
+      }
+      return "Category::" + category;
+    }
+
+    document.querySelectorAll(".tab-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".tab-btn").forEach(function (b) { b.classList.remove("active"); });
+        document.querySelectorAll(".panel").forEach(function (p) { p.classList.remove("active"); });
+        btn.classList.add("active");
+        document.getElementById(btn.getAttribute("data-tab")).classList.add("active");
+      });
+    });
+
+    async function loadOptions() {
+      var response = await fetch("/options");
+      if (!response.ok) throw new Error("Could not load /options");
+      optionsData = await response.json();
+
+      var forecastCategories = ["Overall"].concat(optionsData.Category || []);
+      fillSelect(document.getElementById("forecastCategory"), forecastCategories);
+      syncForecastSubCategories();
+      document.getElementById("forecastCategory").addEventListener("change", syncForecastSubCategories);
+
+      fillSelect(document.getElementById("discCategory"), optionsData.Category);
+      fillSelect(document.getElementById("discSegment"), optionsData.Segment);
+      fillSelect(document.getElementById("discRegion"), optionsData.Region);
+      syncSubCategories();
+      document.getElementById("discCategory").addEventListener("change", syncSubCategories);
+
+      var list = document.getElementById("customerSuggestions");
+      list.innerHTML = "";
+      (optionsData.sample_customer_ids || []).forEach(function (id) {
+        var opt = document.createElement("option");
+        opt.value = id;
+        list.appendChild(opt);
+      });
+    }
+
+    function parseDetail(data) {
+      var detail = data && data.detail;
+      if (Array.isArray(detail)) {
+        return detail.map(function (item) { return item.msg; }).join("; ");
+      }
+      return detail || "Request failed";
+    }
+
+    document.getElementById("forecastForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      var resultEl = document.getElementById("forecastResult");
+      var errorEl = document.getElementById("forecastError");
+      var button = document.getElementById("forecastBtn");
+      hide(resultEl);
+      hide(errorEl);
+      button.disabled = true;
+      button.textContent = "Forecasting...";
+
+      try {
+        var response = await fetch("/forecast/inventory", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            scope: buildForecastScope(),
+            safety_buffer: Number(document.getElementById("safetyBuffer").value)
+          })
+        });
+        var data = await response.json();
+        if (!response.ok) throw new Error(parseDetail(data));
+
+        var historyRows = (data.recent_weekly_history || []).map(function (row) {
+          return "<tr><td>" + escapeHtml(row.week_ending) + "</td><td>" +
+            escapeHtml(row.quantity) + "</td><td>" + escapeHtml(row.sales) + "</td></tr>";
+        }).join("");
+
+        var beatText = data.ml_beats_naive_on_test_mae
+          ? "On the held-out later weeks, the ML model beat the naive baseline (MAE)."
+          : "On the held-out later weeks, the ML model did NOT beat the naive last-week baseline. The app therefore prefers the stronger method for the suggestion.";
+
+        resultEl.innerHTML =
+          "<div class='muted'>Scope: " + escapeHtml(data.scope) + "</div>" +
+          "<div class='muted'>Last week ending: " + escapeHtml(data.last_week_ending) +
+          " (units: " + escapeHtml(data.last_week_quantity_units) + ")</div>" +
+          "<div class='big'>" + escapeHtml(data.suggested_stock_quantity_units) + " units</div>" +
+          "<div>Suggested stock (forecast + " + escapeHtml((data.safety_buffer * 100).toFixed(0)) + "% buffer)</div>" +
+          "<p><strong>Next-week forecast (units):</strong> " + escapeHtml(data.forecast_next_week_quantity_units) +
+          " &nbsp;|&nbsp; method: " + escapeHtml(data.method_used) + "</p>" +
+          "<p>ML forecast: " + escapeHtml(data.ml_forecast_units) +
+          " &nbsp;|&nbsp; Naive last-week: " + escapeHtml(data.naive_forecast_units) + "</p>" +
+          (data.optional_next_week_sales_value_estimate != null
+            ? "<p>Optional sales-value estimate: $" + escapeHtml(data.optional_next_week_sales_value_estimate) +
+              " <span class='muted'>(not the same as units)</span></p>"
+            : "") +
+          "<div class='warn'>" + escapeHtml(beatText) + "</div>" +
+          "<p class='muted'>" + escapeHtml(data.disclaimer) + "</p>" +
+          "<table><thead><tr><th>Week ending</th><th>Quantity</th><th>Sales $</th></tr></thead><tbody>" +
+          historyRows + "</tbody></table>";
+        resultEl.classList.remove("hidden");
+      } catch (error) {
+        showError(errorEl, error.message || String(error));
+      } finally {
+        button.disabled = false;
+        button.textContent = "Run Forecast";
+      }
+    });
+
+    document.getElementById("discountForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      var resultEl = document.getElementById("discountResult");
+      var errorEl = document.getElementById("discountError");
+      var button = document.getElementById("discountBtn");
+      hide(resultEl);
+      hide(errorEl);
+      button.disabled = true;
+      button.textContent = "Estimating...";
+
+      try {
+        var response = await fetch("/discount/scenarios", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            category: document.getElementById("discCategory").value,
+            sub_category: document.getElementById("discSubCategory").value,
+            segment: document.getElementById("discSegment").value,
+            region: document.getElementById("discRegion").value,
+            quantity: Number(document.getElementById("discQuantity").value),
+            sales: Number(document.getElementById("discSales").value)
+          })
+        });
+        var data = await response.json();
+        if (!response.ok) throw new Error(parseDetail(data));
+
+        var profits = data.scenarios.map(function (s) { return s.estimated_profit; });
+        var maxAbs = Math.max.apply(null, profits.map(function (p) { return Math.abs(p); }).concat([1]));
+
+        var rows = data.scenarios.map(function (s) {
+          var width = Math.max(0, Math.min(100, (Math.abs(s.estimated_profit) / maxAbs) * 100));
+          return "<tr>" +
+            "<td>" + escapeHtml(s.discount_percent) + "%</td>" +
+            "<td>$" + escapeHtml(s.estimated_profit) + "</td>" +
+            "<td><div class='bar-track'><div class='bar-fill' style='width:" + width + "%'></div></div></td>" +
+            "</tr>";
+        }).join("");
+
+        resultEl.innerHTML =
+          "<p><strong>Exploratory best among tested discounts:</strong> " +
+          escapeHtml(data.exploratory_recommendation.discount_percent) + "% " +
+          "(est. profit $" + escapeHtml(data.exploratory_recommendation.estimated_profit) + ")</p>" +
+          "<p class='muted'>" + escapeHtml(data.exploratory_recommendation.note) + "</p>" +
+          "<table><thead><tr><th>Discount</th><th>Estimated profit</th><th>Relative bar</th></tr></thead><tbody>" +
+          rows + "</tbody></table>" +
+          "<div class='warn'>" + escapeHtml(data.limitation) + "</div>" +
+          "<p class='muted'>" + escapeHtml(data.discount_scale_note) +
+          " | Model R²=" + escapeHtml(data.model_metrics.r2) +
+          ", MAE=" + escapeHtml(data.model_metrics.mae) + "</p>";
+        resultEl.classList.remove("hidden");
+      } catch (error) {
+        showError(errorEl, error.message || String(error));
+      } finally {
+        button.disabled = false;
+        button.textContent = "Estimate Profit Scenarios";
+      }
+    });
+
+    document.getElementById("loadSegmentsBtn").addEventListener("click", async function () {
+      var resultEl = document.getElementById("segmentsResult");
+      var errorEl = document.getElementById("segmentsError");
+      var button = document.getElementById("loadSegmentsBtn");
+      hide(resultEl);
+      hide(errorEl);
+      button.disabled = true;
+      button.textContent = "Loading...";
+
+      try {
+        var response = await fetch("/segments/summary");
+        var data = await response.json();
+        if (!response.ok) throw new Error(parseDetail(data));
+
+        var rows = (data.segments || []).map(function (s) {
+          return "<tr>" +
+            "<td>" + escapeHtml(s.segment) + "</td>" +
+            "<td>" + escapeHtml(s.customer_count) + "</td>" +
+            "<td>" + escapeHtml(s.avg_recency_days) + "</td>" +
+            "<td>" + escapeHtml(s.avg_frequency_orders) + "</td>" +
+            "<td>$" + escapeHtml(s.avg_monetary_sales) + "</td>" +
+            "</tr>";
+        }).join("");
+
+        resultEl.innerHTML =
+          "<p class='muted'>Reference date: " + escapeHtml(data.reference_date) +
+          " | " + escapeHtml(data.method) + " | k=" + escapeHtml(data.n_clusters) + "</p>" +
+          "<p class='muted'>" + escapeHtml(data.k_choice_reason) + "</p>" +
+          "<table><thead><tr><th>Segment</th><th>Customers</th><th>Avg recency (days)</th><th>Avg orders</th><th>Avg spend</th></tr></thead><tbody>" +
+          rows + "</tbody></table>" +
+          "<p class='muted'>" + escapeHtml(data.note) + "</p>";
+        resultEl.classList.remove("hidden");
+      } catch (error) {
+        showError(errorEl, error.message || String(error));
+      } finally {
+        button.disabled = false;
+        button.textContent = "Load Segment Summary";
+      }
+    });
+
+    document.getElementById("customerForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      var resultEl = document.getElementById("customerResult");
+      var errorEl = document.getElementById("customerError");
+      var button = document.getElementById("customerBtn");
+      hide(resultEl);
+      hide(errorEl);
+      button.disabled = true;
+      button.textContent = "Looking up...";
+
+      var customerId = document.getElementById("customerId").value.trim();
+      try {
+        var response = await fetch("/segments/customer/" + encodeURIComponent(customerId));
+        var data = await response.json();
+        if (!response.ok) throw new Error(parseDetail(data));
+
+        resultEl.innerHTML =
+          "<div class='big'>" + escapeHtml(data.segment) + "</div>" +
+          "<p><strong>Customer:</strong> " + escapeHtml(data.customer_id) + "</p>" +
+          "<p>Recency: " + escapeHtml(data.recency_days) + " days | Frequency: " +
+          escapeHtml(data.frequency_orders) + " orders | Monetary: $" +
+          escapeHtml(data.monetary_sales) + "</p>" +
+          "<p><strong>Suggested marketing action:</strong> " + escapeHtml(data.marketing_suggestion) + "</p>" +
+          "<p class='muted'>" + escapeHtml(data.note) + "</p>";
+        resultEl.classList.remove("hidden");
+      } catch (error) {
+        showError(errorEl, error.message || String(error));
+      } finally {
+        button.disabled = false;
+        button.textContent = "Find Customer Segment";
+      }
+    });
+
+    document.getElementById("metricsBtn").addEventListener("click", async function () {
+      var output = document.getElementById("metricsOutput");
+      var errorEl = document.getElementById("metricsError");
+      var button = document.getElementById("metricsBtn");
+      hide(errorEl);
+      button.disabled = true;
+      button.textContent = "Loading...";
+      try {
+        var response = await fetch("/metrics");
+        var data = await response.json();
+        if (!response.ok) throw new Error(parseDetail(data));
+        output.textContent = JSON.stringify(data, null, 2);
+        output.classList.remove("hidden");
+      } catch (error) {
+        showError(errorEl, error.message || String(error));
+      } finally {
+        button.disabled = false;
+        button.textContent = "Load Metrics";
+      }
+    });
+
+    loadOptions().catch(function (error) {
+      alert("Failed to load options: " + error.message);
+    });
+  </script>
+</body>
+</html>
